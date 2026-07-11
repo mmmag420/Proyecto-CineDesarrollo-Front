@@ -1,15 +1,17 @@
-
 package vistas;
 
+import javax.swing.JOptionPane;
+import modelos.Client;
+import service.ClienteServiceFront;
 
 public class VenRegister extends javax.swing.JFrame {
+    
+    private final ClienteServiceFront service = new ClienteServiceFront();
 
-  
     public VenRegister() {
         initComponents();
         setLocationRelativeTo(this);
     }
-
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -66,6 +68,11 @@ public class VenRegister extends javax.swing.JFrame {
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVolver.setText("Volver");
@@ -184,6 +191,53 @@ public class VenRegister extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        try {
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            int edad = Integer.valueOf(TxtEdad.getText());
+            String cedula = txtCedula.getText();
+            String correo = txtCorreo.getText();
+            String contraseña = txtContraseña.getText();
+            String ciudad = txtCiudad.getText();
+            String rol = "Cliente";
+            boolean membresia = false;
+            
+            if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || TxtEdad.getText().isEmpty() || txtCedula.getText().isEmpty() || txtCorreo.getText().isEmpty()
+                    || txtContraseña.getText().isEmpty() || txtCiudad.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Rellene todos los campos para registrarse");
+                return;
+            } else {
+                
+              Client cliente = new Client(rol,correo, contraseña, cedula, nombre, apellido, edad, ciudad, membresia, null);
+              boolean ok = service.guardarCliente(cliente);
+              
+              if(ok) {
+                  JOptionPane.showMessageDialog(null, "Registro exitoso");
+                  limpiarCampos();
+                  
+              } else {
+                 JOptionPane.showMessageDialog(this, "No se pudo registrar el cliente (cédula duplicada o error de validación)"); 
+              }
+                
+            }
+            
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Error: " + e.getMessage()); 
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    public void limpiarCampos() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        TxtEdad.setText("");
+        txtCedula.setText("");
+        txtCorreo.setText("");
+        txtContraseña.setText("");
+        txtCiudad.setText("");
+                
+    }
+    
     /**
      * @param args the command line arguments
      */

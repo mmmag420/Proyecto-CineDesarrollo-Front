@@ -7,7 +7,7 @@ public class User {
 	private String correo;
 	private String contraseña;
 
-	public User(String rol, int id, String correo, String contraseña) {
+	public User(String rol, String correo, String contraseña) {
 		this.rol = rol;
 		this.id = id;
 		this.correo = correo;
@@ -45,22 +45,5 @@ public class User {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-	
-    
-
-
-	
-
-
-
-    
-	
-	
-	
-    
-	
-	
-	
-	
 	
 }

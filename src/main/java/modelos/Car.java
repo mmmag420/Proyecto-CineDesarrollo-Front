@@ -11,6 +11,10 @@ public class Car {
 	private boolean estado;
 	private double precioFinal;
 	
+        public Car() {
+            
+        }
+        
 	public Car(int idCarrito, ArrayList<Ticket> entradas, ArrayList<Food> combos, String metodoDePago, boolean estado, double precioFinal) {
 		this.idCarrito = idCarrito;
 		this.entradas = entradas;
@@ -23,6 +27,10 @@ public class Car {
 	public int getIdCarrito() {
 		return idCarrito;
 	}
+
+        public void setIdCarrito(int idCarrito) {
+            this.idCarrito = idCarrito;
+        }
 
 	public ArrayList<Ticket> getEntradas() {
 		return entradas;
@@ -60,16 +68,4 @@ public class Car {
 		this.precioFinal = precioFinal;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

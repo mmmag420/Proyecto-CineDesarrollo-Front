@@ -1,22 +1,32 @@
-
 package vistas;
 
-import java.awt.Image;
-import java.net.URL;
-import javax.swing.ImageIcon;
+import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import modelos.Car;
+import modelos.Client;
 import modelos.Movie;
+import service.MovieServiceFront;
+
+
 
 public class VenPrincipal extends javax.swing.JFrame {
     
-    
+    private final MovieServiceFront service = new MovieServiceFront();
+    private Client cliente;
+    private Car carrito;   
+    private Movie[] peliculas;
 
-    public VenPrincipal(String usser) {
+
+    public VenPrincipal(Client cliente, Car carrito) {
         initComponents();
         setLocationRelativeTo(this);
-        txtUserEnSession.setText(usser);
-        
+        this.cliente = cliente;
+        this.carrito = carrito;
+        txtUserEnSession.setText(cliente.getNombre());  
+        this.peliculas = new Movie[3];
+        definirPeliculas();
+        cargarImagenesPeliculas();
     }
 
 
@@ -276,79 +286,46 @@ public class VenPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMovie1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovie1ActionPerformed
-        Movie p = new Movie("NOBODY 2", 
-                "A veces, el lugar más peligroso para un padre son unas vacaciones familiares. "
-                + "Bob Odenkirk regresa como el esposo, padre y asesino adicto al trabajo Hutch Mansell en el nuevo capítulo de Nadie, "
-                + "el éxito de acción de 2021 que debutó en el puesto número uno de la taquilla estadounidense. "
-                + "Cuatro años después de enfrentarse accidentalmente a la mafia rusa, "
-                + "Hutch sigue debiéndoles 30 millones de dólares y está pagando su deuda con una interminable "
-                + "serie de trabajos a criminales internacionales.", 
-                "Para mayores de 15 años", 
-                "Bob Odenkirk, Connie Nielsen, John Ortiz, RZA, Colin Hanks, con Christopher Lloyd y Sharon Stone", 
-                "Timo Tjahjanto", 
-                "/imagenes/posterNadie2.jpg", "https://www.youtube.com/watch?v=latAzkdZJO4&ab_channel=RoyalFilms", "89 mins");
-        String usser = txtUserEnSession.getText();
-        VenPelicula venPelicula = new VenPelicula(usser, p);
+        Movie p = peliculas[0];
+        VenPelicula venPelicula = new VenPelicula(cliente, p, carrito);
         venPelicula.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMovie1ActionPerformed
-
+    
     private void btnMovie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovie2ActionPerformed
-        Movie p = new Movie("THE CONJURING", "Basada en una historia real documentada por los reputados demonólogos Ed y Lorraine Warren."
-                + " Narra los encuentros sobrenaturales que vivió la familia Perron en su casa de Rhode Island a principios de los 70."
-                + " El matrimonio Warren, investigadores de renombre en el mundo de los fenómenos paranormales,"
-                + " acudieron a la llamada de esta familia aterrorizada por la presencia en su granja de un ser maligno",
-                "Para mayores de 15 años", 
-                "Vera Farmiga, Patrick Wilson, Lil Taylor", 
-                "James Wan", "/imagenes/posterConjuro.jpg", "https://www.youtube.com/watch?v=pZGe0V7_L-Q&ab_channel=RoyalFilms", "112 mins");
-        String usser = txtUserEnSession.getText();
-        VenPelicula venPelicula = new VenPelicula(usser, p);
+        Movie p = peliculas[1];
+        VenPelicula venPelicula = new VenPelicula(cliente, p, carrito);
         venPelicula.setVisible(true);
         this.dispose();       
-        
     }//GEN-LAST:event_btnMovie2ActionPerformed
 
     private void btnMovie3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovie3ActionPerformed
-        Movie p = new Movie("THE FANTASTIC FOUR: FIRST STEPS", "Con el vibrante telón de fondo de un mundo retro-futurista inspirado en la década de 1960,"
-                + " LOS CUATRO FANTÁSTICOS: PRIMEROS PASOS de Marvel Studios presenta a La Primera Familia de Marvel: Reed Richards / Sr. Fantástico (Pedro Pascal),"
-                + " Sue Storm / Mujer Invisible (Vanessa Kirby), Johnny Storm / La Antorcha Humana (Joseph Quinn) y Ben Grimm / La Mole (Ebon Moss-Bachrach) "
-                + "mientras enfrentan su más grande desafío hasta el momento. Obligados a equilibrar sus roles de héroes con la fuerza de su vínculo familiar, "
-                + "deben defender la Tierra de un voraz dios del espacio llamado Galactus (Ralph Ineson) y su enigmática Heralda, Silver Surfer (Julia Garner). "
-                + "Y si el plan de Galactus de devorar todo el planeta y a todos los que lo habitan no fuera lo suficientemente malo, de repente se vuelve muy personal.",
-                "Para mayores de 7 años",
-                "Pedro Pascal, Vanessa Kirby, Joseph Quinn, Ebon Moss-Bachrach, Ralph Ineson, Julia Garner, Paul Walter Hauser, John Malkovich, Natasha Lyonne, Sarah Niles",
-                "Matt Shakman", "/imagenes/poster4Fantasticos.jpg", "https://www.youtube.com/watch?v=g-a8Db2xea0&ab_channel=RoyalFilms", "115 mins");
-        String usser = txtUserEnSession.getText();
-        VenPelicula venPelicula = new VenPelicula(usser, p);
+        Movie p = peliculas[2];
+        VenPelicula venPelicula = new VenPelicula(cliente, p, carrito);
         venPelicula.setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_btnMovie3ActionPerformed
 
     private void btnCombosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCombosActionPerformed
-        String usser = txtUserEnSession.getText();
-        VenCombos venCombos = new VenCombos(usser);
+       VenCombos venCombos = new VenCombos(cliente, carrito);
         venCombos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCombosActionPerformed
 
     private void btnMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMembresiaActionPerformed
-        String usser = txtUserEnSession.getText();
-        VenMembresia venMembresia = new VenMembresia(usser);
+        VenMembresia venMembresia = new VenMembresia(cliente, carrito);
         venMembresia.setVisible(true);
-        this.dispose();
-        
+        this.dispose();        
     }//GEN-LAST:event_btnMembresiaActionPerformed
 
     private void btnPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromocionesActionPerformed
-        String usser = txtUserEnSession.getText();
-        VenPromo venPromo = new VenPromo(usser);
+        VenPromo venPromo = new VenPromo(cliente, carrito);
         venPromo.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPromocionesActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        String usser = txtUserEnSession.getText();
-        VenPerfil venPerfil = new VenPerfil(usser);
+       VenPerfil venPerfil = new VenPerfil(cliente, carrito);
         venPerfil.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPerfilActionPerformed
@@ -359,43 +336,59 @@ public class VenPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBotActionPerformed
 
     private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
-        VenCarrito venCarrito = new VenCarrito();
+        VenCarrito venCarrito = new VenCarrito(cliente, carrito);
         venCarrito.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCarritoActionPerformed
 
-  
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    public void definirPeliculas() {
+       try {
+           
+       int contador = 0;
+       List<Movie> peliculas1 = service.listarMovies();
+       for(int i = 0; i < peliculas1.size(); i++) {
+          Movie movie = peliculas1.get(i);
+          if(movie.isEstado()) {
+            peliculas[contador] = movie;  
+            contador ++;
+            if(contador == 3) {
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VenPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VenPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VenPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VenPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+          }
+       }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VenPrincipal(null).setVisible(true);
-            }
-        });
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+       }
     }
+    
+    public void cargarImagenesPeliculas() {
+        try {
+          
+          JButton[] botonesP = new JButton[3];
+          botonesP[0] = btnMovie1;
+          botonesP[1] = btnMovie2;
+          botonesP[2] = btnMovie3;
+          Movie movie = null;
 
+          
+          for(int i = 0; i < peliculas.length; i++) {
+              movie = peliculas[i];
+              if(movie.isEstado()){              
+                JButton boton = botonesP[i];
+                boton.setIcon(new javax.swing.ImageIcon(getClass().getResource(movie.getRutaImagenBoton())));
+                
+                 
+              }
+                  
+          }
+
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbSelectCIty;
     private javax.swing.JButton btnBot;

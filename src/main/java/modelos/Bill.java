@@ -3,15 +3,17 @@ package modelos;
 public class Bill {
 	
 	private int idFactura;
-	private int usuarioid;
+	private String usuarioid;
 	private double valorFactura;
 	private String metodoDePago;
+        private Car carrito;
 	
-	public Bill(int idFactura, int usuarioid, double valorFactura, String metodoDePago) {
+	public Bill(int idFactura, String usuarioid, double valorFactura, String metodoDePago, Car carrito) {
 		this.idFactura = idFactura;
 		this.usuarioid = usuarioid;
 		this.valorFactura = valorFactura;
 		this.metodoDePago = metodoDePago;
+                this.carrito = carrito;
 	}
 
 	public int getIdFactura() {
@@ -22,13 +24,14 @@ public class Bill {
 		this.idFactura = idFactura;
 	}
 
-	public int getUsuarioid() {
-		return usuarioid;
-	}
+        public String getUsuarioid() {
+            return usuarioid;
+        }
 
-	public void setUsuarioid(int usuarioid) {
-		this.usuarioid = usuarioid;
-	}
+        public void setUsuarioid(String usuarioid) {
+            this.usuarioid = usuarioid;
+        }
+
 
 	public double getValorFactura() {
 		return valorFactura;
@@ -45,10 +48,13 @@ public class Bill {
 	public void setMetodoDePago(String metodoDePago) {
 		this.metodoDePago = metodoDePago;
 	}
-	
-	
-	
-	
-	
+
+        public Car getCarrito() {
+            return carrito;
+        }
+
+        public void setCarrito(Car carrito) {
+            this.carrito = carrito;
+        }         
 
 }

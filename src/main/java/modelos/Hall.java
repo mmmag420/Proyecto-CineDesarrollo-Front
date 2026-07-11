@@ -1,15 +1,19 @@
 package modelos;
 
 public class Hall {
+    
+	public enum Dia {
+	    LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO
+	}
 	
 	private int numSala;
 	private Movie movie;
-	private String diaPelicula;
+	private Dia diaPelicula;
 	private String horaInicio;
 	private String horaFin;
 	private Chair[] sillas;
 	
-	public Hall(int numSala, Movie movie, String diaPelicula, String horaInicio, String horaFin, Chair[] sillas) {
+	public Hall(int numSala, Movie movie, Dia diaPelicula, String horaInicio, String horaFin, Chair[] sillas) {
 		this.numSala = numSala;
 		this.movie = movie;
 		this.diaPelicula = diaPelicula;
@@ -30,29 +34,29 @@ public class Hall {
 		this.movie = movie;
 	}
 
-	public String getDiaPelicula() {
-		return diaPelicula;
-	}
+        public Dia getDiaPelicula() {
+            return diaPelicula;
+        }
 
-	public void setDiaPelicula(String diaPelicula) {
-		this.diaPelicula = diaPelicula;
-	}
+        public void setDiaPelicula(Dia diaPelicula) {
+            this.diaPelicula = diaPelicula;
+        }
 
-	public String getHoraInicio() {
-		return horaInicio;
-	}
+        public String getHoraInicio() {
+            return horaInicio;
+        }
 
-	public void setHoraInicio(String horaInicio) {
-		this.horaInicio = horaInicio;
-	}
+        public void setHoraInicio(String horaInicio) {
+            this.horaInicio = horaInicio;
+        }
 
-	public String getHoraFin() {
-		return horaFin;
-	}
+        public String getHoraFin() {
+            return horaFin;
+        }
 
-	public void setHoraFin(String horsFin) {
-		this.horaFin = horsFin;
-	}
+        public void setHoraFin(String horaFin) {
+            this.horaFin = horaFin;
+        }
 
 	public Chair[] getSillas() {
 		return sillas;
@@ -61,12 +65,6 @@ public class Hall {
 	public void setSillas(Chair[] sillas) {
 		this.sillas = sillas;
 	}
-	
-	
-	
-	
-	
-	
 	
 
 }
